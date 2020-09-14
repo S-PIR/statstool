@@ -1,7 +1,7 @@
 <template>
     <div>
-        <input type="text" placeholder="Financial instrument" v-model="finInstrument" />
         <input type="text" v-model="statusDate" />
+        <input type="text" placeholder="Financial instrument" v-model="finInstrument" />
         <input type="number" v-model="price" />
         <input type="button" value="Save" @click="save" />
     </div>
@@ -18,7 +18,7 @@
     }
 
     export default {
-        props: ['stats', 'statsAttr'],
+        props: ['stats', "statsAttr"],
         data() {
             return {
                 id: '',

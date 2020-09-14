@@ -1,21 +1,20 @@
 <template>
-    <div>
-        <i>({{ dailyStats.id }})</i>
-        <span style="position: absolute; right: 65%">
+    <tr>
+        <td>
             {{ dailyStats.statusDate }}
-        </span>
-        <span style="position: absolute; right: 40%">
+        </td>
+        <td>
             {{ dailyStats.finInstrument.instrumentName }}
-        </span>
-        <span style="position: absolute; left: 63%">
+        </td>
+        <td>
             {{ dailyStats.price }}
-        </span>
-
-        <span style="position: absolute; right: 0">
+        </td>
+        <td>
             <input type="button" value="Edit" @click="edit" />
             <input type="button" value="Delete" @click="del" />
-        </span>
-    </div>
+        </td>
+
+    </tr>
 </template>
 
 <script>
@@ -30,7 +29,9 @@
             }
         }
     }
+
 </script>
 
-<style>
+<style scoped>
+
 </style>

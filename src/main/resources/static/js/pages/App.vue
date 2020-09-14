@@ -1,18 +1,19 @@
 <template>
     <div>
-        <daily-stats-list :stats="stats" />
+        <daily-stats-table :stats="stats" :statsColumns="statsColumns"/>
     </div>
 </template>
 
 <script>
-    import DailyStatsList from 'components/stats/DailyStatsList.vue'
+    import DailyStatsTable from 'components/stats/DailyStatsTable.vue'
     export default {
         components: {
-            DailyStatsList
+            DailyStatsTable
         },
         data() {
             return {
-                stats: frontendData.stats
+                stats: frontendData.stats,
+                statsColumns: ["statusDate", "finInstrument", "price"]
             }
         }
     }
