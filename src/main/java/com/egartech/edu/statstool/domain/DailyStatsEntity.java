@@ -2,9 +2,12 @@ package com.egartech.edu.statstool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -24,9 +27,8 @@ public class DailyStatsEntity {
 
     @Column(name = "status_date", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonView(Views.FulInfo.class)
-
     private LocalDate statusDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -34,7 +36,7 @@ public class DailyStatsEntity {
     @JsonView(Views.FulInfo.class)
     private FinInstrument finInstrument;
 
-    @JoinColumn(name = "price")
+    @Column(name = "price")
     @JsonView(Views.FulInfo.class)
     private BigDecimal price;
 

@@ -8,23 +8,34 @@
                          :statsColumns="statsColumns"
                          :dailyStats="dailyStats"
 
-        />
+        /><br>
+            <div id="modal-create">
+                <button type="button" class="btn" @click="showModal">Create new</button>
+                <modal-create-entry
+                        :stats="stats"
+                        v-show="isModalVisible"
+                        @close="closeModal"
+                />
+            </div>
     </div>
 </template>
 
 <script>
     import DailyStatsForm from 'components/stats/DailyStatsForm.vue'
     import DailyStatsEntry from 'components/stats/DailyStatsEntry.vue'
+    import ModalCreateEntry from "components/stats/ModalCreateEntry.vue";
 
     export default {
         props: ['stats', 'statsColumns'],
         components: {
+            DailyStatsForm,
             DailyStatsEntry,
-            DailyStatsForm
+            ModalCreateEntry,
         },
         data() {
             return {
-                dailyStats: null
+                dailyStats: null,
+                isModalVisible: false,
             }
         },
         methods: {
@@ -37,6 +48,12 @@
                         this.stats.splice(this.stats.indexOf(dailyStats), 1)
                     }
                 })
+            },
+            showModal() {
+                this.isModalVisible = true;
+            },
+            closeModal() {
+                this.isModalVisible = false;
             }
         }
     }
