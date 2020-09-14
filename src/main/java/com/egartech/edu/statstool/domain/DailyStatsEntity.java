@@ -26,7 +26,6 @@ public class DailyStatsEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonView(Views.FulInfo.class)
-
     private LocalDate statusDate;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

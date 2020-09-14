@@ -1,23 +1,25 @@
 <template>
-    <div style="position: relative; width: 400px;">
-        <daily-stats-form :stats="stats" :statsAttr="dailyStats" />
-        <daily-stats-row v-for="dailyStats in stats"
-                     :key="dailyStats.id"
-                     :dailyStats="dailyStats"
-                     :editDailyStats="editDailyStats"
-                     :deleteDailyStats="deleteDailyStats"
-                     :stats="stats" />
+    <div>
+        <daily-stats-form :stats="stats" :statsAttr="dailyStats" /><br>
+        <daily-stats-entry
+                         :editDailyStats="editDailyStats"
+                         :deleteDailyStats="deleteDailyStats"
+                         :stats="stats"
+                         :statsColumns="statsColumns"
+                         :dailyStats="dailyStats"
+
+        />
     </div>
 </template>
 
 <script>
-    import DailyStatsRow from 'components/stats/DailyStatsRow.vue'
     import DailyStatsForm from 'components/stats/DailyStatsForm.vue'
+    import DailyStatsEntry from 'components/stats/DailyStatsEntry.vue'
 
     export default {
-        props: ['stats'],
+        props: ['stats', 'statsColumns'],
         components: {
-            DailyStatsRow,
+            DailyStatsEntry,
             DailyStatsForm
         },
         data() {
@@ -41,4 +43,5 @@
 </script>
 
 <style>
+
 </style>

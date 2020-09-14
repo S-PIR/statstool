@@ -30,7 +30,14 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
-            }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
+            },
         ]
     },
     plugins: [
@@ -39,6 +46,7 @@ module.exports = {
     resolve: {
         modules: [
             path.join(__dirname, 'src', 'main', 'resources', 'static', 'js'),
+            path.join(__dirname, 'src', 'main', 'resources', 'static', 'css'),
             path.join(__dirname, 'node_modules'),
         ],
     }
