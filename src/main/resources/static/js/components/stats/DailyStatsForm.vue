@@ -18,7 +18,7 @@
     }
 
     export default {
-        props: ['stats', "statsAttr"],
+        props: ['stats', 'statsAttr'],
         data() {
             return {
                 id: '',
