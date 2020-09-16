@@ -33,7 +33,7 @@ public class DailyStatsEntity {
     @JsonView(Views.FulInfo.class)
     private FinInstrument finInstrument;
 
-    @JoinColumn(name = "price")
+    @Column(name = "price")
     @JsonView(Views.FulInfo.class)
     private BigDecimal price;
 
