@@ -1,47 +1,95 @@
 <template>
     <div>
-        <daily-stats-form :stats="stats" :statsAttr="dailyStats" /><br>
-        <daily-stats-entry
+        <table>
+            <thead>
+            <tr>
+                <th v-for="column in statsColumns"
+                    @click="sortBy(column)"
+                    :class="{ active: sortKey === column }">
+                    {{ column | capitalize }}
+                    <span class="arrow" :class="sortOrders[column] > 0 ? 'asc' : 'dsc'"/>
+                </th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <table-entry v-for="dailyStats in filteredStats"
+                         :key="dailyStats.id"
+                         :dailyStats="dailyStats"
                          :editDailyStats="editDailyStats"
                          :deleteDailyStats="deleteDailyStats"
-                         :stats="stats"
-                         :statsColumns="statsColumns"
-                         :dailyStats="dailyStats"
-
-        />
+                         :stats="stats"/>
+            </tbody>
+        </table>
     </div>
+
+
 </template>
 
 <script>
-    import DailyStatsForm from 'components/stats/DailyStatsForm.vue'
-    import DailyStatsEntry from 'components/stats/DailyStatsEntry.vue'
+    import TableEntry from 'components/stats/TableEntry.vue'
 
     export default {
-        props: ['stats', 'statsColumns'],
         components: {
-            DailyStatsEntry,
-            DailyStatsForm
+            TableEntry
         },
+        props: [
+            'editDailyStats',
+            'deleteDailyStats',
+            'stats',
+            'statsColumns',
+
+        ],
         data() {
+            let sortOrders = {};
+            this.statsColumns.forEach(function(column) {
+                sortOrders[column] = 1;
+            });
             return {
-                dailyStats: null
+                sortKey: "",
+                sortOrders: sortOrders,
+                dailyStats: null,
+            };
+        },
+        computed: {
+            filteredStats() {
+                let sortKey = this.sortKey;
+                let order = this.sortOrders[sortKey] || 1
+                let stats = this.stats
+                let x, y
+                const ColumnInstrument = this.statsColumns[1]
+                if (sortKey) {
+                    stats = stats.slice().sort(function(a, b) {
+
+                        if (sortKey === ColumnInstrument){
+                            x = a[sortKey].instrumentName
+                            y = b[sortKey].instrumentName
+                            return x.localeCompare(y) * order;
+                        } else {
+                            x = a[sortKey]
+                            y = b[sortKey]
+                            return (x == y ? 0 : x > y ? 1 : -1) * order;
+                        }
+                    });
+                }
+                return stats;
+            }
+        },
+        filters: {
+            capitalize(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
             }
         },
         methods: {
-            editDailyStats(dailyStats) {
-                this.dailyStats = dailyStats
+            sortBy(column) {
+                this.sortKey = column;
+                this.sortOrders[column] = this.sortOrders[column] * -1;
             },
-            deleteDailyStats(dailyStats) {
-                this.$resource('/stats{/id}').remove({id: dailyStats.id}).then(result => {
-                    if (result.ok) {
-                        this.stats.splice(this.stats.indexOf(dailyStats), 1)
-                    }
-                })
-            }
+
         }
     }
+
 </script>
 
 <style>
-
 </style>

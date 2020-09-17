@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            {{ dailyStats.statusDate }}
+            {{ this.$moment().format(dailyStats.statusDate, 'DD-MM-YYYY') }}
         </td>
         <td>
             {{ dailyStats.finInstrument.instrumentName }}
@@ -22,6 +22,7 @@
         props: ['dailyStats', 'editDailyStats', 'deleteDailyStats', 'stats'],
         methods: {
             edit() {
+
                 this.editDailyStats(this.dailyStats)
             },
             del() {

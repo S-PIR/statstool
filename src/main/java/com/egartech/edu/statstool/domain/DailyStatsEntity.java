@@ -23,8 +23,6 @@ public class DailyStatsEntity {
     private Integer id;
 
     @Column(name = "status_date", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonView(Views.FulInfo.class)
     private LocalDate statusDate;
 
@@ -33,7 +31,7 @@ public class DailyStatsEntity {
     @JsonView(Views.FulInfo.class)
     private FinInstrument finInstrument;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     @JsonView(Views.FulInfo.class)
     private BigDecimal price;
 

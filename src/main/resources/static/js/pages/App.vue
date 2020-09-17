@@ -1,14 +1,15 @@
 <template>
-    <div>
-        <daily-stats-table :stats="stats" :statsColumns="statsColumns"/>
+    <div class="app">
+        <h3>StatsTool</h3>
+        <daily-stats :stats="stats" :statsColumns="statsColumns"/>
     </div>
 </template>
 
 <script>
-    import DailyStatsTable from 'components/stats/DailyStatsTable.vue'
+    import DailyStats from 'components/stats/DailyStats.vue'
     export default {
         components: {
-            DailyStatsTable
+            DailyStats
         },
         data() {
             return {
@@ -20,4 +21,7 @@
 </script>
 
 <style>
+    .app {
+        text-align: center;
+    }
 </style>

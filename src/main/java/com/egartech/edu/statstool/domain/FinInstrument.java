@@ -16,7 +16,7 @@ public class FinInstrument {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "instrument_name")
+    @Column(name = "instrument_name", nullable = false)
     private String instrumentName;
 
     public FinInstrument(String instrumentName) {
