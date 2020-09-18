@@ -4,10 +4,11 @@ import App from 'pages/App.vue';
 import 'mystyles.css';
 import moment from 'moment';
 import VueMoment from 'vue-moment';
-
+import Vuelidate from 'vuelidate'
 
 Vue.use(VueResource)
 Vue.use(VueMoment, { moment })
+Vue.use(Vuelidate)
 
 
 new Vue({
