@@ -8,28 +8,25 @@
                     @close="closeModal"
             />
         </div><br>
-        <daily-stats-form :stats="stats" :statsAttr="dailyStats" /><br>
+
         <daily-stats-table
                          :editDailyStats="editDailyStats"
                          :deleteDailyStats="deleteDailyStats"
                          :stats="stats"
                          :statsColumns="statsColumns"
                          :dailyStats="dailyStats"
-
         />
 
     </div>
 </template>
 
 <script>
-    import DailyStatsForm from 'components/stats/DailyStatsForm.vue'
     import DailyStatsTable from 'components/stats/DailyStatsTable.vue'
     import ModalCreateEntry from "components/stats/ModalCreateEntry.vue";
 
     export default {
         props: ['stats', 'statsColumns'],
         components: {
-            DailyStatsForm,
             DailyStatsTable,
             ModalCreateEntry,
         },

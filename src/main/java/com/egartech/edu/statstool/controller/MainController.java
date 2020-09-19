@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping
 public class MainController {
     private final DailyStatsEntityRepo repo;
 

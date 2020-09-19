@@ -14,7 +14,7 @@
         data() {
             return {
                 stats: frontendData.stats,
-                statsColumns: ["statusDate", "finInstrument", "price"]
+                statsColumns: [ "statusDate", "finInstrument", "price" ],
             }
         }
     }

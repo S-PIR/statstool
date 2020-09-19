@@ -14,7 +14,6 @@
                             <input class="form__input" type="date" v-model.trim.lazy="$v.statusDate.$model" />
                             <div class="form__error" v-if="!$v.statusDate.required">Field is required</div>
                         </div>
-                        <tree-view :data="$v.statusDate" :options="{rootObjectKey: '$v.statusDate', maxDepth: 2}"/>
 
                         <div class="" :class="{ 'form__error': $v.finInstrument.$error }">
                             <input class="form__input" v-model.trim.lazy="$v.finInstrument.$model" placeholder="instrument"/>
@@ -23,16 +22,14 @@
                                 Instrument must have at least {{$v.finInstrument.$params.minLength.min}} letters.
                             </div>
                         </div>
-                        <tree-view :data="$v.finInstrument" :options="{rootObjectKey: '$v.finInstrument', maxDepth: 2}"/>
 
                         <div class="" :class="{ 'form__error': $v.price.$error }">
-                            <input class="form__input" v-model.trim.lazy="$v.price.$model" placeholder="price"/>
+                            <input class="form__input" v-model.number.trim.lazy="$v.price.$model" placeholder="price"/>
                             <div class="form__error" v-if="!$v.price.required">Field is required</div>
                             <div class="form__error" v-if="!$v.price.between">
                                 Must be between {{$v.price.$params.between.min}} and {{$v.price.$params.between.max}}
                             </div><br>
                         </div>
-                        <tree-view :data="$v.price" :options="{rootObjectKey: '$v.price', maxDepth: 2}"></tree-view>
 
                         <input class="btn" type="button" value="Save" @click="save" />
                         <p class="form__error" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
@@ -110,4 +107,27 @@
 </script>
 
 <style>
+    .form__input {
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #eee;
+        font-size: 1.0em;
+        padding: 5px;
+        display: block;
+        margin: 10px auto 5px;
+    }
+
+    .form__error {
+        color: red;
+        font-size: 1.0em;
+        padding-left: 10px;
+        margin: auto;
+    }
+
+    .edit_form {
+        width: 230px;
+        padding: 10px;
+        display: block;
+        margin: auto;
+    }
 </style>

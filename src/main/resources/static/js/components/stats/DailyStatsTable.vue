@@ -18,7 +18,9 @@
                          :dailyStats="dailyStats"
                          :editDailyStats="editDailyStats"
                          :deleteDailyStats="deleteDailyStats"
-                         :stats="stats"/>
+                         :stats="stats"
+                         :statsColumns="statsColumns"
+            />
             </tbody>
         </table>
     </div>
@@ -38,13 +40,12 @@
             'deleteDailyStats',
             'stats',
             'statsColumns',
-
         ],
         data() {
-            let sortOrders = {};
+            let sortOrders = {}
             this.statsColumns.forEach(function(column) {
                 sortOrders[column] = 1;
-            });
+            })
             return {
                 sortKey: "",
                 sortOrders: sortOrders,
@@ -60,7 +61,6 @@
                 const ColumnInstrument = this.statsColumns[1]
                 if (sortKey) {
                     stats = stats.slice().sort(function(a, b) {
-
                         if (sortKey === ColumnInstrument){
                             x = a[sortKey].instrumentName
                             y = b[sortKey].instrumentName
