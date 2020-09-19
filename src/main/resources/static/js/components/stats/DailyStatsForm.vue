@@ -1,6 +1,4 @@
 <template>
-
-
     <div class="edit_form">
         <form @submit.prevent="save" >
             <div class="" :class="{ 'form__error': $v.statusDate.$error }">
@@ -24,7 +22,7 @@
             <tree-view :data="$v.price" :options="{rootObjectKey: '$v.price', maxDepth: 2}"></tree-view>
 
             <input class="btn" type="button" value="Save" @click="save" />
-            <p v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
+            <p v-if="submitStatus === 'ERROR'" style="color: red">Please fill the form correctly.</p>
         </form>
     </div>
 </template>
@@ -114,7 +112,7 @@
         border: none;
         outline: none;
         border-bottom: 2px solid #eee;
-        font-size: 1em;
+        font-size: 1.0em;
         padding: 5px;
         display: block;
         margin: 10px auto 5px;
@@ -123,17 +121,18 @@
 
     .form__error {
         color: red;
-        font-size: 0.8em;
+        font-size: 1.0em;
         padding-left: 10px;
+        margin: auto;
     }
 
     .edit_form {
         width: 230px;
         padding: 10px;
-        border: 2px solid #eee;
-        border-radius: 10px;
         display: block;
         margin: auto;
     }
+
+
 
 </style>

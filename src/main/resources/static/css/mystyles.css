@@ -132,9 +132,8 @@ th.active .arrow {
     padding: 1px;
     cursor: pointer;
     font-weight: bold;
-    color: #4aae9b;
+    color: #444444;
     background: transparent;
-
 }
 
 .btn {
@@ -142,6 +141,7 @@ th.active .arrow {
     background: #4aae9b;
     border: 1px solid #4aae9b;
     border-radius: 2px;
+    padding: 10px;
 }
 
 .modal-fade-enter,
