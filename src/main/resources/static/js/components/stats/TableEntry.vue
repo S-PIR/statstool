@@ -117,7 +117,7 @@
             },
             price: {
                 required,
-                between: between(1, 10000)
+                between: between(1, 11000)
             },
         },
         computed: {

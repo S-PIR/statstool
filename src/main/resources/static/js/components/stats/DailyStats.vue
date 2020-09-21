@@ -16,19 +16,24 @@
                          :statsColumns="statsColumns"
                          :dailyStats="dailyStats"
         />
+        <daily-stats-chart :stats="stats"/>
 
     </div>
 </template>
 
 <script>
     import DailyStatsTable from 'components/stats/DailyStatsTable.vue'
-    import ModalCreateEntry from "components/stats/ModalCreateEntry.vue";
+    import ModalCreateEntry from "components/stats/ModalCreateEntry.vue"
+    import DailyStatsChart from "components/stats/DailyStatsChart.vue"
 
     export default {
         props: ['stats', 'statsColumns'],
         components: {
+            DailyStatsChart,
             DailyStatsTable,
             ModalCreateEntry,
+            DailyStatsChart,
+
         },
         data() {
             return {

@@ -64,7 +64,7 @@
             },
             price: {
                 required,
-                between: between(0, 10000)
+                between: between(0, 11000)
             },
         },
         watch: {
