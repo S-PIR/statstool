@@ -29,20 +29,20 @@
                    :class="{ editing: getEditedField === statsColumns[1] }"
                    @dblclick="beginEdit(statsColumns[1])"
             >
-                {{ dailyStats.finInstrument.instrumentName }}
+                {{ dailyStats.finInstrument.instrument }}
             </label>
             <div class="" :class="{ 'form__error': $v.finInstrument.$error }">
-                <input
-                        class=""
+                <select class=""
                         :class="{ editing: !(getEditedField === statsColumns[1]) }"
                         type="text"
                         v-model.trim.lazy="$v.finInstrument.$model"
                         v-field-focus = "getEditedField === statsColumns[1]"
-                        @keyup.enter="edit()"
+                        @change="edit()"
                         @blur="cancelEdit()"
                         @keyup.esc="cancelEdit()"
-
-                />
+                >
+                    <option v-for="option in instruments" :value="option">{{option}}</option>
+                </select>
                 <div class="form__error" v-if="!$v.finInstrument.required">Field is required</div>
                 <div class="form__error" v-if="!$v.finInstrument.minLength">
                     Instrument must have at least {{$v.finInstrument.$params.minLength.min}} letters.
@@ -95,12 +95,19 @@
     }
 
     export default {
-        props: ['dailyStats', 'editDailyStats', 'deleteDailyStats', 'stats', 'statsColumns'],
+        props: [
+            'dailyStats',
+            'editDailyStats',
+            'deleteDailyStats',
+            'stats',
+            'statsColumns',
+            "instruments",
+        ],
         data() {
             return {
                 id: this.dailyStats.id,
                 statusDate: this.dailyStats.statusDate,
-                finInstrument: this.dailyStats.finInstrument.instrumentName,
+                finInstrument: this.dailyStats.finInstrument.instrument,
                 price: this.dailyStats.price,
                 editedDailyStats: '',
                 editedField: '',
@@ -145,7 +152,7 @@
                             this.stats.splice(index, 1, data)
                             this.id = data.id
                             this.statusDate = data.statusDate
-                            this.finInstrument = data.finInstrument.instrumentName
+                            this.finInstrument = data.finInstrument.instrument
                             this.price = data.price
                             this.editedDailyStats = ''
                             this.editedField = ''
@@ -166,7 +173,7 @@
             cancelEdit() {
                 this.id = this.dailyStats.id
                 this.statusDate = this.dailyStats.statusDate
-                this.finInstrument = this.dailyStats.finInstrument.instrumentName
+                this.finInstrument = this.dailyStats.finInstrument.instrument
                 this.price = this.dailyStats.price
                 this.editedDailyStats = ''
                 this.editedField = ''

@@ -1,25 +1,34 @@
 package com.egartech.edu.statstool.domain;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@ToString(of = {"id", "instrumentName"})
+@ToString(of = {"id", "instrument"})
 @Entity
 @Table(name = "fin_instrument")
 public class FinInstrument {
     @Id
-    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    @JsonView(Views.Id.class)
     private Integer id;
 
     @Column(name = "instrument_name", nullable = false)
-    private String instrumentName;
+    @JsonView(Views.FulInfo.class)
+    private Instrument instrument;
+
+    @OneToMany(mappedBy = "finInstrument", cascade = CascadeType.ALL)
+    @JsonBackReference
+    Set<DailyStatsEntity> dailyStatsEntities;
 
     public FinInstrument(String instrumentName) {
-        this.instrumentName = instrumentName;
+        this.instrument = Instrument.valueOf(instrumentName.toUpperCase());
+        this.id = this.instrument.ordinal();
     }
 }

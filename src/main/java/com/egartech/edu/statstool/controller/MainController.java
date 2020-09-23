@@ -1,5 +1,6 @@
 package com.egartech.edu.statstool.controller;
 
+import com.egartech.edu.statstool.domain.Instrument;
 import com.egartech.edu.statstool.repos.DailyStatsEntityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class MainController {
     public String main(Model model) {
         HashMap<Object, Object> data = new HashMap<>();
         data.put("stats", repo.findAll());
+        data.put("instruments", Instrument.values());
         model.addAttribute("frontendData", data);
         return "index";
     }
