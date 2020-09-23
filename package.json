@@ -7,8 +7,10 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
+    "chart.js": "^2.9.3",
     "moment": "^2.28.0",
     "vue": "^2.6.12",
+    "vue-chartjs": "^3.5.1",
     "vue-moment": "^4.1.0",
     "vue-resource": "^1.5.1",
     "vuelidate": "^0.7.5"
@@ -23,7 +25,6 @@
     "style-loader": "^1.2.1",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12",
-    "vue-trend-chart": "^0.15.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

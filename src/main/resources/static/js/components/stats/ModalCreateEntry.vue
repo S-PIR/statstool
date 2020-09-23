@@ -1,7 +1,7 @@
 <template>
     <transition name="modal-fade">
-        <div class="modal-backdrop">
-            <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+        <div class="modal-backdrop" ref="modal" tabindex="0" @keyup.esc="$emit('close')">
+            <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription" >
                 <header class="modal-header" id="modalTitle">
                     <slot name="header">
                         <button type="button" class="btn-close" @click="close" aria-label="Close modal">Close</button>
@@ -16,7 +16,11 @@
                         </div>
 
                         <div class="" :class="{ 'form__error': $v.finInstrument.$error }">
-                            <input class="form__input" v-model.trim.lazy="$v.finInstrument.$model" placeholder="instrument"/>
+<!--                            <input class="form__input" v-model.trim.lazy="$v.finInstrument.$model" placeholder="instrument"/>-->
+                            <select class="form__input" v-model.trim.lazy="$v.finInstrument.$model">
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                <option v-for="option in instruments" :value="option">{{option}}</option>
+                            </select>
                             <div class="form__error" v-if="!$v.finInstrument.required">Field is required</div>
                             <div class="form__error" v-if="!$v.finInstrument.minLength">
                                 Instrument must have at least {{$v.finInstrument.$params.minLength.min}} letters.
@@ -31,7 +35,7 @@
                             </div><br>
                         </div>
 
-                        <input class="btn" type="button" value="Save" @click="save" />
+                        <input class="btn" type="button" value="Save" @click="save"/>
                         <p class="form__error" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>
                     </slot>
                 </section>
@@ -43,7 +47,7 @@
 <script>
     import {between, minLength, required} from "vuelidate/lib/validators";
     export default {
-        props: ['stats'],
+        props: ['stats', 'instruments'],
         data() {
             return {
                 id: '',
@@ -101,7 +105,10 @@
                     )
                     this.$emit('close')
                 }
-            }
+            },
+        },
+        mounted() {
+            this.$refs.modal.focus()
         }
     }
 </script>

@@ -1,11 +1,12 @@
 package com.egartech.edu.statstool.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,7 +14,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "daily_stats")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class DailyStatsEntity {
     @Id
@@ -26,10 +28,11 @@ public class DailyStatsEntity {
     @JsonView(Views.FulInfo.class)
     private LocalDate statusDate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "instrument_id", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "instrument_id", nullable = false)
     @JsonView(Views.FulInfo.class)
     private FinInstrument finInstrument;
+
 
     @Column(name = "price", nullable = false)
     @JsonView(Views.FulInfo.class)

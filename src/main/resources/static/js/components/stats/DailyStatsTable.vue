@@ -20,12 +20,11 @@
                          :deleteDailyStats="deleteDailyStats"
                          :stats="stats"
                          :statsColumns="statsColumns"
+                         :instruments="instruments"
             />
             </tbody>
         </table>
     </div>
-
-
 </template>
 
 <script>
@@ -40,6 +39,7 @@
             'deleteDailyStats',
             'stats',
             'statsColumns',
+            "instruments"
         ],
         data() {
             let sortOrders = {}
@@ -62,9 +62,11 @@
                 if (sortKey) {
                     stats = stats.slice().sort(function(a, b) {
                         if (sortKey === ColumnInstrument){
-                            x = a[sortKey].instrumentName
-                            y = b[sortKey].instrumentName
+
+                            x = a[sortKey].instrument
+                            y = b[sortKey].instrument
                             return x.localeCompare(y) * order;
+                        return order
                         } else {
                             x = a[sortKey]
                             y = b[sortKey]

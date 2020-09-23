@@ -4,6 +4,7 @@
             <button type="button" class="btn" @click="showModal">Create new entry</button>
             <modal-create-entry
                     :stats="stats"
+                    :instruments="instruments"
                     v-show="isModalVisible"
                     @close="closeModal"
             />
@@ -14,9 +15,9 @@
                          :deleteDailyStats="deleteDailyStats"
                          :stats="stats"
                          :statsColumns="statsColumns"
-                         :dailyStats="dailyStats"
+                         :instruments="instruments"
         />
-        <daily-stats-chart :stats="stats"/>
+        <daily-stats-chart :stats="stats" :instruments="instruments"/>
 
     </div>
 </template>
@@ -27,9 +28,8 @@
     import DailyStatsChart from "components/stats/DailyStatsChart.vue"
 
     export default {
-        props: ['stats', 'statsColumns'],
+        props: ['stats', 'statsColumns', 'instruments'],
         components: {
-            DailyStatsChart,
             DailyStatsTable,
             ModalCreateEntry,
             DailyStatsChart,
