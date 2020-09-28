@@ -7,8 +7,8 @@ import VueMoment from 'vue-moment';
 import Vuelidate from 'vuelidate'
 
 
-Vue.use(VueResource)
 Vue.use(VueMoment, { moment })
+Vue.use(VueResource)
 Vue.use(Vuelidate)
 
 

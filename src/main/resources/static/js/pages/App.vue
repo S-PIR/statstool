@@ -1,7 +1,7 @@
 <template>
     <div class="app">
-        <h3>StatsTool</h3>
-        <daily-stats :stats="stats" :instruments="instruments" :statsColumns="statsColumns"/>
+        <h2>StatsTool</h2>
+        <daily-stats class="chart" :stats="stats" :instruments="instruments" :statsColumns="statsColumns"/>
     </div>
 </template>
 
