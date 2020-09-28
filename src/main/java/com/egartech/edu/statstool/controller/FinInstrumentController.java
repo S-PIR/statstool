@@ -1,6 +1,5 @@
 package com.egartech.edu.statstool.controller;
 
-import com.egartech.edu.statstool.domain.DailyStatsEntity;
 import com.egartech.edu.statstool.domain.FinInstrument;
 import com.egartech.edu.statstool.domain.Views;
 import com.egartech.edu.statstool.domain.dto.CharDataDto;
@@ -8,13 +7,7 @@ import com.egartech.edu.statstool.service.FinInstrumentService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/instrument")

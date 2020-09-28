@@ -8,6 +8,7 @@ import lombok.Data;
 public class DataSets {
     private String label;
     private String backgroundColor;
+    private String borderColor;
     private Double[] data;
 
 }

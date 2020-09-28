@@ -71,14 +71,14 @@
                 between: between(0, 11000)
             },
         },
-        watch: {
-            statsAttr(newVal, oldVal) {
-                this.id = newVal.id
-                this.statusDate = newVal.statusDate
-                this.finInstrument = newVal.finInstrument.instrumentName
-                this.price = newVal.price
-            }
-        },
+        // watch: {
+        //     statsAttr(newVal, oldVal) {
+        //         this.id = newVal.id
+        //         this.statusDate = newVal.statusDate
+        //         this.finInstrument = newVal.finInstrument.instrumentName
+        //         this.price = newVal.price
+        //     }
+        // },
         methods: {
             close() {
                 this.$emit('close');
