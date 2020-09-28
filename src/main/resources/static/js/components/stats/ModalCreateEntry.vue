@@ -16,7 +16,6 @@
                         </div>
 
                         <div class="" :class="{ 'form__error': $v.finInstrument.$error }">
-<!--                            <input class="form__input" v-model.trim.lazy="$v.finInstrument.$model" placeholder="instrument"/>-->
                             <select class="form__input" v-model.trim.lazy="$v.finInstrument.$model">
                                 <option value="" disabled selected hidden>Please Choose...</option>
                                 <option v-for="option in instruments" :value="option">{{option}}</option>
@@ -71,14 +70,6 @@
                 between: between(0, 11000)
             },
         },
-        // watch: {
-        //     statsAttr(newVal, oldVal) {
-        //         this.id = newVal.id
-        //         this.statusDate = newVal.statusDate
-        //         this.finInstrument = newVal.finInstrument.instrumentName
-        //         this.price = newVal.price
-        //     }
-        // },
         methods: {
             close() {
                 this.$emit('close');

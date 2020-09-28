@@ -1,23 +1,33 @@
 <template>
     <div>
-        <div id="modal-create">
-            <button type="button" class="btn" @click="showModal">Create new entry</button>
-            <modal-create-entry
-                    :stats="stats"
-                    :instruments="instruments"
-                    v-show="isModalVisible"
-                    @close="closeModal"
-            />
-        </div><br>
+        <table >
+            <thead>
+            <tr>
+                <th>
+                    <div id="modal-create">
+                        <button type="button" class="btn" @click="showModal">Create new entry</button>
+                        <modal-create-entry
+                                :stats="stats"
+                                :instruments="instruments"
+                                v-show="isModalVisible"
+                                @close="closeModal"
+                        />
+                    </div><br>
+                    <daily-stats-table
+                            :editDailyStats="editDailyStats"
+                            :deleteDailyStats="deleteDailyStats"
+                            :stats="stats"
+                            :statsColumns="statsColumns"
+                            :instruments="instruments"
+                    />
+                </th>
+                <th>
+                    <daily-stats-chart class="chart" :stats="stats" :instruments="instruments"/>
+                </th>
+            </tr>
+            </thead>
+        </table>
 
-        <daily-stats-table
-                         :editDailyStats="editDailyStats"
-                         :deleteDailyStats="deleteDailyStats"
-                         :stats="stats"
-                         :statsColumns="statsColumns"
-                         :instruments="instruments"
-        />
-        <daily-stats-chart :stats="stats" :instruments="instruments"/>
 
     </div>
 </template>
@@ -63,5 +73,20 @@
 </script>
 
 <style>
+    body {
+        font-family: Helvetica Neue, Arial, sans-serif;
+        font-size: 14px;
+        color: #444;
+    }
+
+    table {
+        border: none;
+        background-color: #fff;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    th {
+        padding: 0px 20px;
+    }
 
 </style>
