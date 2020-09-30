@@ -1,17 +1,11 @@
 <template>
     <div class="app">
         <h2>StatsTool</h2>
-        <daily-stats/>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import DailyStats from 'components/stats/DailyStats.vue'
-    export default {
-        components: {
-            DailyStats
-        },
-    }
 </script>
 
 <style>
