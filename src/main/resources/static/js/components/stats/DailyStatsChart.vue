@@ -1,7 +1,7 @@
 <template>
     <div class="small">
         <select v-model="index" @change="fillData()">
-            <option value="" disabled selected hidden>{{ instruments[1] }}</option>
+            <option value="" disabled selected hidden>{{ instruments[0] }}</option>
             <option v-for="(option, index) in instruments" :value="index">{{ option }}</option>
         </select>
         <line-chart v-if="loaded" :chart-data="datacollection"></line-chart>
@@ -10,16 +10,15 @@
 
 <script>
     import LineChart from 'components/stats/LineChart.vue'
+    import { mapState } from "vuex";
 
     export default {
         components: {
             LineChart
         },
-        props: ['stats', 'instruments'],
+        computed: mapState(['stats', 'instruments']),
         data() {
-
             return {
-                instrument: this.instruments[0],
                 datacollection: this.fillData(),
                 index: 0,
                 dateChart: null,
@@ -54,8 +53,5 @@
 </script>
 
 <style>
-    .small {
-        max-width: 600px;
-        margin:  150px auto;
-    }
+
 </style>

@@ -6,14 +6,14 @@
                     :class="{ editing: getEditedField === statsColumns[0]}"
                     @dblclick="beginEdit(statsColumns[0])"
             >
-                {{ this.$moment().format(dailyStats.statusDate, 'DD-MM-YYYY') }}
+                {{ this.$moment().format(dailyStats.statusDate, 'DD-YYYY') }}
             </label>
             <div class="" :class="{ 'form__error': $v.statusDate.$error }">
                 <input
                         class=""
                         :class="{ editing: !(getEditedField === statsColumns[0]) }"
                         type="date"
-                        v-model.trim.lazy="$v.statusDate.$model"
+                        v-model.trim="$v.statusDate.$model"
                         @keyup.enter="edit()"
                         v-field-focus = "getEditedField === statsColumns[0]"
                         @blur="cancelEdit()"
@@ -35,7 +35,7 @@
                 <select class=""
                         :class="{ editing: !(getEditedField === statsColumns[1]) }"
                         type="text"
-                        v-model.trim.lazy="$v.finInstrument.$model"
+                        v-model.trim="$v.finInstrument.$model"
                         v-field-focus = "getEditedField === statsColumns[1]"
                         @change="edit()"
                         @blur="cancelEdit()"
@@ -62,7 +62,7 @@
                         class=""
                         :class="{ editing: !(getEditedField === statsColumns[2]) }"
                         type="text"
-                        v-model.number.trim.lazy="$v.price.$model"
+                        v-model.number.trim="$v.price.$model"
                         v-field-focus = "getEditedField === statsColumns[2]"
                         @keyup.enter="edit()"
                         @blur="cancelEdit()"
@@ -83,25 +83,12 @@
 
 <script>
 
-    import {between, minLength, required} from "vuelidate/lib/validators";
-
-    function getIndex(list, id) {
-        for (let i = 0; i < list.length; i++ ) {
-            if (list[i].id === id) {
-                return i
-            }
-        }
-        return -1
-    }
+    import {between, minLength, required} from "vuelidate/lib/validators"
+    import { mapState, mapActions } from "vuex"
 
     export default {
         props: [
             'dailyStats',
-            'editDailyStats',
-            'deleteDailyStats',
-            'stats',
-            'statsColumns',
-            "instruments",
         ],
         data() {
             return {
@@ -132,9 +119,11 @@
                 if (this.editedDailyStats === this.dailyStats) {
                     return this.editedField
                 }
-            }
+            },
+            ...mapState(['stats', 'instruments', 'statsColumns'])
         },
         methods: {
+            ...mapActions(['removeDailyStatsAction', 'updateDailyStatsAction']),
             edit() {
                 this.$v.$touch()
                 if (this.$v.$invalid) {
@@ -146,40 +135,34 @@
                         finInstrument: this.finInstrument,
                         price: this.price,
                     }
-                    this.$resource('/stats{/id}').update({id: this.id}, dailyStats).then(result =>
-                        result.json().then(data => {
-                            const index = getIndex(this.stats, data.id)
-                            this.stats.splice(index, 1, data)
-                            this.id = data.id
-                            this.statusDate = data.statusDate
-                            this.finInstrument = data.finInstrument.instrument
-                            this.price = data.price
-                            this.editedDailyStats = ''
-                            this.editedField = ''
-                        })
-                    )
+                    this.updateDailyStatsAction(dailyStats)
+                    this.editedField = ''
+                    this.editedDailyStats = ''
                 }
             },
 
             del() {
-                this.deleteDailyStats(this.dailyStats)
+                this.removeDailyStatsAction(this.dailyStats)
             },
 
             beginEdit(editedField) {
                 this.editedField = editedField
                 this.editedDailyStats = this.dailyStats;
+                this.fillLocalDailyStats()
             },
 
             cancelEdit() {
+                this.editedDailyStats = ''
+                this.editedField = ''
+                this.fillLocalDailyStats()
+            },
+
+            fillLocalDailyStats() {
                 this.id = this.dailyStats.id
                 this.statusDate = this.dailyStats.statusDate
                 this.finInstrument = this.dailyStats.finInstrument.instrument
                 this.price = this.dailyStats.price
-                this.editedDailyStats = ''
-                this.editedField = ''
-            },
-
-
+            }
         },
 
         directives: {

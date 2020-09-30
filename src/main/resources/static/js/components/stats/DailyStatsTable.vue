@@ -16,11 +16,6 @@
             <table-entry v-for="dailyStats in filteredStats"
                          :key="dailyStats.id"
                          :dailyStats="dailyStats"
-                         :editDailyStats="editDailyStats"
-                         :deleteDailyStats="deleteDailyStats"
-                         :stats="stats"
-                         :statsColumns="statsColumns"
-                         :instruments="instruments"
             />
             </tbody>
         </table>
@@ -29,32 +24,27 @@
 
 <script>
     import TableEntry from 'components/stats/TableEntry.vue'
+    import { mapState, mapGetters} from 'vuex'
 
     export default {
         components: {
             TableEntry
         },
-        props: [
-            'editDailyStats',
-            'deleteDailyStats',
-            'stats',
-            'statsColumns',
-            "instruments"
-        ],
         data() {
             let sortOrders = {}
-            this.statsColumns.forEach(function(column) {
+            this.$store.state.statsColumns.forEach(function(column) {
                 sortOrders[column] = 1;
             })
             return {
-                sortKey: "",
+                sortKey: null,
                 sortOrders: sortOrders,
                 dailyStats: null,
             };
         },
         computed: {
+            ...mapState(['stats', 'statsColumns']),
             filteredStats() {
-                let sortKey = this.sortKey;
+                let sortKey = this.sortKey
                 let order = this.sortOrders[sortKey] || 1
                 let stats = this.stats
                 let x, y
@@ -62,30 +52,28 @@
                 if (sortKey) {
                     stats = stats.slice().sort(function(a, b) {
                         if (sortKey === ColumnInstrument){
-
                             x = a[sortKey].instrument
                             y = b[sortKey].instrument
-                            return x.localeCompare(y) * order;
-                        return order
+                            return x.localeCompare(y) * order
                         } else {
                             x = a[sortKey]
                             y = b[sortKey]
-                            return (x == y ? 0 : x > y ? 1 : -1) * order;
+                            return (x === y ? 0 : x > y ? 1 : -1) * order
                         }
                     });
                 }
-                return stats;
-            }
+                return stats
+            },
         },
         filters: {
             capitalize(str) {
-                return str.charAt(0).toUpperCase() + str.slice(1);
+                return str.charAt(0).toUpperCase() + str.slice(1)
             }
         },
         methods: {
             sortBy(column) {
-                this.sortKey = column;
-                this.sortOrders[column] = this.sortOrders[column] * -1;
+                this.sortKey = column
+                this.sortOrders[column] = this.sortOrders[column] * -1
             },
 
         }

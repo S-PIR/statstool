@@ -7,22 +7,14 @@
                     <div id="modal-create">
                         <button type="button" class="btn" @click="showModal">Create new entry</button>
                         <modal-create-entry
-                                :stats="stats"
-                                :instruments="instruments"
                                 v-show="isModalVisible"
                                 @close="closeModal"
                         />
                     </div><br>
-                    <daily-stats-table
-                            :editDailyStats="editDailyStats"
-                            :deleteDailyStats="deleteDailyStats"
-                            :stats="stats"
-                            :statsColumns="statsColumns"
-                            :instruments="instruments"
-                    />
+                    <daily-stats-table/>
                 </th>
-                <th>
-                    <daily-stats-chart class="chart" :stats="stats" :instruments="instruments"/>
+                <th class="chart">
+                    <daily-stats-chart/>
                 </th>
             </tr>
             </thead>
@@ -38,7 +30,6 @@
     import DailyStatsChart from "components/stats/DailyStatsChart.vue"
 
     export default {
-        props: ['stats', 'statsColumns', 'instruments'],
         components: {
             DailyStatsTable,
             ModalCreateEntry,
@@ -52,16 +43,6 @@
             }
         },
         methods: {
-            editDailyStats(dailyStats) {
-                this.dailyStats = dailyStats
-            },
-            deleteDailyStats(dailyStats) {
-                this.$resource('/stats{/id}').remove({id: dailyStats.id}).then(result => {
-                    if (result.ok) {
-                        this.stats.splice(this.stats.indexOf(dailyStats), 1)
-                    }
-                })
-            },
             showModal() {
                 this.isModalVisible = true;
             },
