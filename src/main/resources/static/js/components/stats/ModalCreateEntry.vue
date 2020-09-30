@@ -44,9 +44,10 @@
 </template>
 
 <script>
-    import {between, minLength, required} from "vuelidate/lib/validators";
+    import { between, minLength, required } from "vuelidate/lib/validators"
+    import { mapState, mapActions } from "vuex"
+
     export default {
-        props: ['stats', 'instruments'],
         data() {
             return {
                 id: '',
@@ -57,6 +58,8 @@
                 submitStatus: null,
             }
         },
+        computed: mapState(['instruments']),
+
         validations: {
             statusDate: {
                 required,
@@ -71,6 +74,7 @@
             },
         },
         methods: {
+            ...mapActions(['addDailyStatsAction']),
             close() {
                 this.$emit('close');
             },
@@ -85,15 +89,11 @@
                         finInstrument: this.finInstrument,
                         price: this.price,
                     }
-                    this.$resource('/stats{/id}').save({}, dailyStats).then(result =>
-                        result.json().then(data => {
-                            this.stats.push(data)
-                            this.id = ''
-                            this.statusDate = ''
-                            this.finInstrument = ''
-                            this.price = ''
-                        })
-                    )
+                    this.addDailyStatsAction(dailyStats)
+                    this.id = ''
+                    this.statusDate = ''
+                    this.finInstrument = ''
+                    this.price = ''
                     this.$emit('close')
                 }
             },

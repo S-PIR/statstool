@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <h2>StatsTool</h2>
-        <daily-stats class="chart" :stats="stats" :instruments="instruments" :statsColumns="statsColumns"/>
+        <daily-stats/>
     </div>
 </template>
 
@@ -11,13 +11,6 @@
         components: {
             DailyStats
         },
-        data() {
-            return {
-                stats: frontendData.stats,
-                instruments: frontendData.instruments,
-                statsColumns: [ "statusDate", "finInstrument", "price" ],
-            }
-        }
     }
 </script>
 
