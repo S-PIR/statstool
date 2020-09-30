@@ -10,13 +10,14 @@
 
 <script>
     import LineChart from 'components/stats/LineChart.vue'
-    import { mapState } from "vuex";
+    import { mapState, mapActions } from "vuex"
+    import instrumentApi from "api/instrument"
 
     export default {
         components: {
             LineChart
         },
-        computed: mapState(['stats', 'instruments']),
+        computed: mapState(['instruments', 'stats']),
         data() {
             return {
                 datacollection: this.fillData(),
@@ -34,15 +35,12 @@
             }
         },
         methods: {
-            fillData() {
+            ...mapActions(["addDailyStatsAction"]),
+            async fillData() {
                 this.loaded = false
-                this.$resource('/instrument/stats{/id}').get({id: this.index})
-                    .then(result =>
-                        result.json().then(data => {
-                            this.datacollection = data
-                            this.loaded = true
-                        })
-                    )
+                const result = await instrumentApi.get(this.index)
+                this.datacollection = await result.json()
+                this.loaded = true
             }
         }
     };
