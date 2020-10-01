@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import DailyStats from "components/stats/DailyStats.vue";
+import DailyStats from 'pages/DailyStats.vue'
 
 
 Vue.use(VueRouter)

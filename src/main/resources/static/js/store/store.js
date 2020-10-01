@@ -38,7 +38,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async addDailyStatsAction({commit, state}, dailyStats){
+        async addDailyStatsAction({commit}, dailyStats){
             const result = await statsApi.add(dailyStats)
             const data = await result.json()
             commit('addDailyStatsMutation', data)

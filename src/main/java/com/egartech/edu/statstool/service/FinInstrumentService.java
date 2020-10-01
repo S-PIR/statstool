@@ -2,12 +2,11 @@ package com.egartech.edu.statstool.service;
 
 import com.egartech.edu.statstool.domain.DailyStatsEntity;
 import com.egartech.edu.statstool.domain.FinInstrument;
-import com.egartech.edu.statstool.domain.dto.CharDataDto;
-import com.egartech.edu.statstool.domain.dto.DataSets;
+import com.egartech.edu.statstool.domain.dto.ChartDataDto;
+import com.egartech.edu.statstool.domain.dto.ChartDataSets;
 import com.egartech.edu.statstool.repos.FinInstrumentRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -43,10 +42,10 @@ public class FinInstrumentService {
         instrumentRepo.delete(finInstrument);
     }
 
-    public CharDataDto getInstrumentStats(FinInstrument finInstrument) {
+    public ChartDataDto getChartData(FinInstrument finInstrument) {
         Set<DailyStatsEntity> dailyStatsSet = finInstrument.getDailyStatsEntities();
         if (dailyStatsSet.isEmpty()) {
-            return CharDataDto.EMPTY_CHAR_DATA;
+            return ChartDataDto.EMPTY_CHAR_DATA;
         }
         TreeMap<LocalDate, BigDecimal> stats =  dailyStatsSet.stream()
                 .collect(Collectors.toMap(
@@ -62,11 +61,16 @@ public class FinInstrumentService {
         Double[] data = stats.values().stream()
                 .map(BigDecimal::doubleValue)
                 .toArray(Double[]::new);
-        DataSets[] dataSets = new DataSets[]{new DataSets(label, backgroundTransparent, borderColorRed, data)};
+        ChartDataSets[] dataSets = new ChartDataSets[]{new ChartDataSets(label, backgroundTransparent, borderColorRed, data)};
 
         LocalDate[] labels = stats.keySet().toArray(LocalDate[]::new);
-        CharDataDto charData = new CharDataDto(labels, dataSets);
+        ChartDataDto charData = new ChartDataDto(labels, dataSets);
 
         return charData;
+    }
+
+    public ChartDataDto getChartDataById(int id) {
+        FinInstrument instrument = instrumentRepo.getOne(id);
+        return getChartData(instrument);
     }
 }

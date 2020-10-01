@@ -10,7 +10,7 @@
 
 <script>
     import LineChart from 'components/stats/LineChart.vue'
-    import { mapState, mapActions } from "vuex"
+    import { mapState } from "vuex"
     import instrumentApi from "api/instrument"
 
     export default {
@@ -35,7 +35,6 @@
             }
         },
         methods: {
-            ...mapActions(["addDailyStatsAction"]),
             async fillData() {
                 this.loaded = false
                 const result = await instrumentApi.get(this.index)

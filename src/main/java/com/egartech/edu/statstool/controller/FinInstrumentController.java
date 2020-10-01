@@ -1,10 +1,8 @@
 package com.egartech.edu.statstool.controller;
 
 import com.egartech.edu.statstool.domain.FinInstrument;
-import com.egartech.edu.statstool.domain.Views;
-import com.egartech.edu.statstool.domain.dto.CharDataDto;
+import com.egartech.edu.statstool.domain.dto.ChartDataDto;
 import com.egartech.edu.statstool.service.FinInstrumentService;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +18,6 @@ public class FinInstrumentController {
     }
 
     @GetMapping
-    @JsonView(Views.FulInfo.class)
     public List<FinInstrument> list() {
         return instrumentService.findAll();
     }
@@ -49,7 +46,12 @@ public class FinInstrumentController {
     }
 
     @GetMapping("stats/{id}")
-    public CharDataDto getInstrumentStats(@PathVariable("id") FinInstrument finInstrument){
-        return instrumentService.getInstrumentStats(finInstrument);
+    public ChartDataDto getInstrumentStats(@PathVariable("id") FinInstrument finInstrument){
+        return instrumentService.getChartData(finInstrument);
+    }
+
+    @GetMapping("stats")
+    public ChartDataDto getFirstInstrumentStats(){
+        return instrumentService.getChartDataById(0);
     }
 }
