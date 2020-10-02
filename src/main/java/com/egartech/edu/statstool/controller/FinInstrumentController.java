@@ -49,9 +49,4 @@ public class FinInstrumentController {
     public ChartDataDto getInstrumentStats(@PathVariable("id") FinInstrument finInstrument){
         return instrumentService.getChartData(finInstrument);
     }
-
-    @GetMapping("stats")
-    public ChartDataDto getFirstInstrumentStats(){
-        return instrumentService.getChartDataById(0);
-    }
 }

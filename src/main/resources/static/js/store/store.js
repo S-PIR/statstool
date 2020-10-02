@@ -22,7 +22,6 @@ export default new Vuex.Store({
         },
         updateDailyStatsMutation(state, dailyStats){
             const updateIndex = state.stats.findIndex(item => item.id === dailyStats.id)
-            alert(updateIndex)
             if (updateIndex > -1) {
                 state.stats = [
                     ...state.stats.slice(0, updateIndex),

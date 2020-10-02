@@ -37,7 +37,8 @@
         methods: {
             async fillData() {
                 this.loaded = false
-                const result = await instrumentApi.get(this.index)
+                const index = this.index
+                const result = await instrumentApi.get(index | 0)
                 this.datacollection = await result.json()
                 this.loaded = true
             }

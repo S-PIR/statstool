@@ -56,12 +56,12 @@ public class FinInstrumentService {
                 );
 
         String label = finInstrument.getInstrument().instrumentName;
-        String backgroundTransparent = "rgba(255, 99, 132, 0.2)";
+        String background = "rgba(255, 99, 132, 0.2)";
         String borderColorRed = "#FF0000";
         Double[] data = stats.values().stream()
                 .map(BigDecimal::doubleValue)
                 .toArray(Double[]::new);
-        ChartDataSets[] dataSets = new ChartDataSets[]{new ChartDataSets(label, backgroundTransparent, borderColorRed, data)};
+        ChartDataSets[] dataSets = new ChartDataSets[]{new ChartDataSets(label, background, borderColorRed, data)};
 
         LocalDate[] labels = stats.keySet().toArray(LocalDate[]::new);
         ChartDataDto charData = new ChartDataDto(labels, dataSets);
@@ -69,8 +69,4 @@ public class FinInstrumentService {
         return charData;
     }
 
-    public ChartDataDto getChartDataById(int id) {
-        FinInstrument instrument = instrumentRepo.getOne(id);
-        return getChartData(instrument);
-    }
 }
