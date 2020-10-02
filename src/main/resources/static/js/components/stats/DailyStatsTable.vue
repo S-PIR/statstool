@@ -24,7 +24,7 @@
 
 <script>
     import TableEntry from 'components/stats/TableEntry.vue'
-    import { mapState, mapGetters} from 'vuex'
+    import { mapState } from 'vuex'
 
     export default {
         components: {

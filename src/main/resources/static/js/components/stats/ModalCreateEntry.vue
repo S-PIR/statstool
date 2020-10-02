@@ -50,10 +50,10 @@
     export default {
         data() {
             return {
-                id: '',
-                statusDate: '',
-                finInstrument: '',
-                price: '',
+                id: null,
+                statusDate: null,
+                finInstrument: null,
+                price: null,
                 showModal: false,
                 submitStatus: null,
             }
@@ -90,10 +90,10 @@
                         price: this.price,
                     }
                     this.addDailyStatsAction(dailyStats)
-                    this.id = ''
-                    this.statusDate = ''
-                    this.finInstrument = ''
-                    this.price = ''
+                    this.id = null
+                    this.statusDate = null
+                    this.finInstrument = null
+                    this.price = null
                     this.$emit('close')
                 }
             },

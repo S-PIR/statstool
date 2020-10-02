@@ -12,23 +12,27 @@ export default new Vuex.Store({
     },
     mutations: {
         addDailyStatsMutation(state, dailyStats){
-            state.stats = [
-                ...state.stats,
-                dailyStats
-            ]
+            const createIndex = state.stats.findIndex(item => item.id === dailyStats.id)
+            if (createIndex < 0) {
+                state.stats = [
+                    ...state.stats,
+                    dailyStats
+                ]
+            }
         },
         updateDailyStatsMutation(state, dailyStats){
             const updateIndex = state.stats.findIndex(item => item.id === dailyStats.id)
-
-            state.stats = [
-                ...state.stats.slice(0, updateIndex),
-                dailyStats,
-                ...state.stats.slice(updateIndex + 1)
-            ]
+            alert(updateIndex)
+            if (updateIndex > -1) {
+                state.stats = [
+                    ...state.stats.slice(0, updateIndex),
+                    dailyStats,
+                    ...state.stats.slice(updateIndex + 1)
+                ]
+            }
         },
         removeDailyStatsMutation(state, dailyStats){
             const deletionIndex = state.stats.findIndex(item => item.id === dailyStats.id)
-
             if (deletionIndex > -1) {
                 state.stats = [
                     ...state.stats.slice(0, deletionIndex),
@@ -38,7 +42,7 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async addDailyStatsAction({commit}, dailyStats){
+        async addDailyStatsAction({commit, state}, dailyStats){
             const result = await statsApi.add(dailyStats)
             const data = await result.json()
             commit('addDailyStatsMutation', data)
@@ -50,7 +54,6 @@ export default new Vuex.Store({
         },
         async removeDailyStatsAction({commit}, dailyStats){
             const result = await statsApi.remove(dailyStats.id)
-
             if (result.ok) {
                 commit('removeDailyStatsMutation', dailyStats)
             }
